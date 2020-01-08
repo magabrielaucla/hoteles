@@ -1,0 +1,102 @@
+<div class="container" style="padding-top: 10px;">
+	<div class="container-content">
+		<div class="row">
+			<div class="col-6">
+				<form>
+				  <div class="form-group form-inline">
+				  	Busqueda: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>
+				  	<span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+				  </div>
+				</form>
+			</div>
+			<div class="col-3"></div>
+			<div class="col-3">
+				<button type="button" class="btn btn-success" (click)="onUpdate()">
+					<fa-icon [icon]="faPlusCircle"></fa-icon> Agregar
+				</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<table class="table table-striped">
+		
+			 <thead>
+		  <tr>
+			  <div class="row">
+			    <div class="col-1">
+					<th scope="col" sortable="codigo" (sort)="onSort($event)">#</th>
+				</div>
+				<div class="col-4">
+					 <th scope="col" sortable="pais" (sort)="onSort($event)">
+					 <fa-icon [icon]="faSort"></fa-icon>
+					 Country</th>
+				</div>
+				<div class="col-3">
+					 <th scope="col" sortable="estatus" (sort)="onSort($event)">
+					 <fa-icon [icon]="faSort"></fa-icon>A/I</th>
+				</div>
+				<div class="col-2">
+					 <th scope="col">Modificar</th>
+				</div>
+				<div class="col-2">
+					<th scope="col">Eliminar</th>
+				</div>
+			</div>
+		  </tr>
+		  </thead>
+	
+		
+		  <tbody>
+		  <tr *ngFor="let pais of paises$ | async; index as i">
+		  	<div class="row">
+				<div class="col-1">
+					 <th scope="row">{{pais.codigo}}</th>
+				</div>
+				<div class="col-4">
+					 <td>
+				      <ngb-highlight [result]="pais.pais" [term]="service.searchTerm"></ngb-highlight>
+				    </td>
+				</div>
+				<div class="col-3">
+					<td>
+						<ngb-highlight [result]="pais.estatus" [term]="service.searchTerm"></ngb-highlight>
+					</td>
+				</div>
+				<div class="col-2">
+					<td>
+				    	<button type="button" class="btn btn-success" (click)="onUpdate()">
+				    		<fa-icon [icon]="faEdit"></fa-icon></button>
+				   </td>
+				</div>
+				<div class="col-2">
+					 <td>
+				    	<button type="button" class="btn btn-danger" (click)="onDelete()">
+				    		<fa-icon [icon]="faTrashAlt"></fa-icon>
+				    	</button>
+				   </td>
+				</div>
+			</div>
+		  </tr>
+		  </tbody>
+		</table>
+		</div>
+
+		<!-- PAGINACION -->
+
+		<div class="d-flex justify-content-between p-2">
+		    <ngb-pagination
+		      [collectionSize]="total$ | async" [(page)]="service.page" [pageSize]="service.pageSize">
+		    </ngb-pagination>
+
+		    <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+		      <option [ngValue]="2">2 items per page</option>
+		      <option [ngValue]="4">4 items per page</option>
+		      <option [ngValue]="6">6 items per page</option>
+		    </select>
+		  </div>
+		<!-- FIN DE PAGINACION -->
+		
+	</div> <!-- FIN CONTAINER-CONTENT-->
+</div> <!--FIN DEL CONTAINER -->
+
+

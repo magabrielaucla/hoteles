@@ -1,28 +1,19 @@
-import { Component} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ModalLoginComponent} from './modal-login/modal-login.component';
-import {PaisComponent} from './pais/pais.component';
+import { Component, OnInit } from '@angular/core';
+import {NgbModal, ModalDismissReasons,NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
- 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-modal-login',
+  templateUrl: './modal-login.component.html',
+  styleUrls: ['./modal-login.component.css']
 })
-export class AppComponent {
+export class ModalLoginComponent implements OnInit {
 
-  title = 'hoteles';
-  closeResult: string;
+ closeResult: string;
 
-  constructor(private modalService: NgbModal) {}
-
-  abrir(){  
-
-    this.modalService.open(ModalLoginComponent); 
-    //this.modalService.open(PaisComponent);
-
+  constructor(private modalService: NgbModal,public activeModal: NgbActiveModal) {}
+   ngOnInit() {
   }
-/*
+
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -39,7 +30,8 @@ export class AppComponent {
     } else {
       return  `with: ${reason}`;
     }
-  }*/
+  }
 
+ 
 
 }
